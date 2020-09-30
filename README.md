@@ -2,7 +2,7 @@
 
 ### Project: Using Machine Learning to Aid in the Mitigation of Wildfires
 
-### Graphic:  
+### Project Graphic/Overview:  
 
 
 ![Project Visual](project_outline.png)  
