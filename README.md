@@ -2,6 +2,12 @@
 
 ### Project: Using Machine Learning to Aid in the Mitigation of Wildfires
 
+### Graphic:  
+
+
+
+
+
 ### Summary/Overview:
 
 Our dataset that we are using contains information about 1.88 million US Wildfires. For each sample, there are data points on the location, name of the fire, date and time of the fire, size of the fire, as well as several codes corresponding to different fire classes that each fire is classified as. We are hoping to take this data and create meaningful insights that can aid in the mitigation efforts of wildfires, for example predicting the final size of a fire, predicting the cause of a fire, or predicting where and when fires are most likely to start.
