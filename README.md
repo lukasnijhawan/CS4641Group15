@@ -10,7 +10,7 @@
 
 ### Summary/Overview:
 
-Our dataset that we are using contains information about 1.88 million US Wildfires. For each sample, there are data points on the location, name of the fire, date and time of the fire, size of the fire, as well as several codes corresponding to different fire classes that each fire is classified as. We are hoping to take this data and create meaningful insights that can aid in the mitigation efforts of wildfires, for example predicting the final size of a fire, predicting the cause of a fire, or predicting where and when fires are most likely to start.
+Our dataset that we are using contains information about 1.88 million US Wildfires. For each sample, there are data points on the location, name of the fire, date and time of the fire, size of the fire, as well as several codes corresponding to different fire classes that each fire is classified as. We are hoping to take this data and create meaningful insights that can aid in the mitigation efforts of wildfires, for example predicting the final size of a fire, predicting the cause of a fire, or predicting where and when fires are most likely to start. We plan to start by using unsupervised learning to focus on the clustering of different types of fires in order to get a better since of the data we are dealing with in terms of causes, sizes, and locations, and then we can move to supervised learning which will allow us to use tools like regression in order to predict the ultimate size of a fire given certain features of a fire that has started. When dealing with this regression step, we also anticipate pulling in other weather data that can help us build a succesful regression model. This is important to be able to predict as it has the most direct effect on people's lives - more so than cause or location of a fire. People need to know how big a fire is going to get and if we can build a tool that can accurately give them this information it could play an important role in keeping people safe.  
 
 ### Background:
 
@@ -18,14 +18,22 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 ### Methods:
 
+When we start with this project, the first step is going to be to get a better understanding of what our data looks like and what features we believe to be most important in this experiment. Some methods we plan on using for this step are:  
 For initial data analysis:  
--Correlation Matrix  
--Regression models?  
--Encoding of non-numeric values  
-Machine Learning methods:  
--Gaussian Mixture Models to identify likely areas that wildfires may start  
--K-Means clustering to group certain sizes of wildfires  
--Heirarchial clustering to narrow down certain types of causes of wildfires  
+  1. Correlation Matrix  
+  2. Feature engineering
+  3. Encoding of non-numeric values  
+  
+We then anticipate moving onto unsupervised learning to start, which will most likely consist of the following models being ran on the data:   
+  1. Gaussian Mixture Models to identify likely areas that wildfires may start  
+  2. K-Means clustering to group certain sizes of wildfires  
+  3. Heirarchial clustering to narrow down certain types of causes of wildfires  
+
+Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. In this step we anticipate having to pull in data from a weather API in order to gain more features for each data point. Some of the methods we plan on using in this step include:  
+  1. Data cleaning/engineering with wildfires and weather  
+  2. Supervised learning models including, but not limited to:  
+      * Linear Regression
+      * Ridge Regression
 
 
 ### Results:
@@ -34,7 +42,7 @@ The hypothetical outcome for this project is that we will be able to predict the
 
 ### Discussion:
 
-For this project, the best outcome would be that we are able to successfully predict certain aspects of a wildfire like size, cause, and area. The worst possible outcome to our experiment would be a lack of correlation or success between our training and testing data, which would mean that our models cannot accurately predict features of a wildfire, either because the fires themselves are random in nature or because our models were not built correctly. Regardless of the outcome we receive, there are clear next steps that can be taken. For example, if our model is unsuccessful, some of the next steps might be to look at the dataset and see why the fires appear to act so randomly, and then try and take into account this randomness with a future model if possible. If we are successful in our wildfire prediction efforts, a logical next step would be to try and scale our model to other datasets (outside of the United States, for example Italy) where they are also having trouble with wildfires, and see how a similar model would perform in a different general geographical region.
+For this project, the best outcome would be that we are able to successfully predict certain aspects of a wildfire like size, cause, and area. The worst possible outcome to our experiment would be a lack of correlation or success with our various models, which would mean that our models cannot accurately predict features of a wildfire, either because the fires themselves are random in nature or because our models were not built correctly. Regardless of the outcome we receive, there are clear next steps that can be taken. For example, if our model is unsuccessful, some of the next steps might be to look at the dataset and see why the fires appear to act so randomly, and then try and take into account this randomness with a future model if possible. If we are successful in our wildfire prediction efforts, a logical next step would be to try and scale our model to other datasets (outside of the United States, for example Italy) where they are also having trouble with wildfires, and see how a similar model would perform in a different general geographical region.
 
 ### References:
 
@@ -47,3 +55,11 @@ https://www.sciencedaily.com/releases/2019/09/190917133052.htm
 (3):  
 https://www.firescience.gov/projects/14-1-04-5/project/14-1-04-5_EnvSciTech_Reid_SpatiotemporalModelingWildfires.pdf 
 
+(4):
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4874420/  
+
+(5):  
+https://www.fs.fed.us/psw/publications/documents/psw_gtr058/psw_gtr058_6a_keeley.pdf  
+
+(6):  
+https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019EF001210  
