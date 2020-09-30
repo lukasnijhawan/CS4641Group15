@@ -5,7 +5,7 @@
 ### Graphic:  
 
 
-
+![Project Visual](project_outline.png)  
 
 
 ### Summary/Overview:
