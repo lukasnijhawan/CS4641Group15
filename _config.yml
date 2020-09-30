@@ -1,2 +1,5 @@
 theme: jekyll-theme-slate
 title: CS4641 Group Project
+
+github:
+  is_project_page: false
