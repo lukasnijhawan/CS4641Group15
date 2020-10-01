@@ -1,0 +1,3 @@
+## Machine Learning and Wildfires...
+
+Hi! Welcome to our repository. We are a group of four Georgia Tech students who are attempting to use Machine Learning methods in order to aid in the mitigation of wildfires, specifically those in the United States. Please feel free to check out our page, https://lukasnijhawan.github.io/CS4641Group15/, for more information!
