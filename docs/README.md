@@ -20,6 +20,16 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 #### Unsupervised Section:  
 ##### Data Cleaning:  
+Getting rid of features:  
+
+Feature analysis:  
+
+##### Unsupervised Algorithms:
+Clustering:  
+
+Kernel Density Estimation:  
+
+
 
 
 
