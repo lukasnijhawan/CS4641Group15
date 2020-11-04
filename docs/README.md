@@ -36,7 +36,7 @@ Kernel Density Estimation:
 
 
 
-## Supervised Section:  
+#### Supervised Section:  
 Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. In this step we anticipate having to pull in data from a weather API in order to gain more features for each data point. Some of the methods we plan on using in this step include:  
   1. Data cleaning/engineering with wildfires and weather  
   2. Supervised learning models including, but not limited to:  
