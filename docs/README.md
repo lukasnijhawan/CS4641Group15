@@ -18,17 +18,15 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 ### Methods:
 
-When we start with this project, the first step is going to be to get a better understanding of what our data looks like and what features we believe to be most important in this experiment. Some methods we plan on using for this step are:  
-For initial data analysis:  
-  1. Correlation Matrix  
-  2. Feature engineering
-  3. Encoding of non-numeric values  
+#### Unsupervised Section:  
+##### Data Cleaning:  
 
-We then anticipate moving onto unsupervised learning to start, which will most likely consist of the following models being ran on the data:   
-  1. Gaussian Mixture Models to identify likely areas that wildfires may start  
-  2. K-Means clustering to group certain sizes of wildfires  
-  3. Heirarchial clustering to narrow down certain types of causes of wildfires  
 
+
+
+
+
+## Supervised Section:  
 Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. In this step we anticipate having to pull in data from a weather API in order to gain more features for each data point. Some of the methods we plan on using in this step include:  
   1. Data cleaning/engineering with wildfires and weather  
   2. Supervised learning models including, but not limited to:  
