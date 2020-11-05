@@ -32,7 +32,7 @@ During this unsupervised learning phase, we attempted to employ several clusteri
 Since this plot tells us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand our data we ran this Kernel Density Estimator for each class of fire (A-G), and received the following results:  
 
 Class A (smallest):  
-![Class A Fires](/vis/ClassAHM.jpg)  
+![Class A Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassAHM.png)  
 Class B:  
 ![Class B Fires](/vis/ClassBHM.jpg)  
 Class C:  
