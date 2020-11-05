@@ -27,23 +27,24 @@ Feature analysis:
 ##### Unsupervised Algorithms:
 
 During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn't tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere- as expected). See the plot below:  
-
+![Elbow Method](vis/LocationElbow.jpg)
+![Clustering on Location](vis/LocationCluster.jpg)
 Since this plot tells us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand our data we ran this Kernel Density Estimator for each class of fire (A-G), and received the following results:  
 
 Class A (smallest):  
-
+![Class A Fires](vis/ClassAHM.jpg)
 Class B:  
-
+![Class B Fires](vis/ClassBHM.jpg)
 Class C:  
-
+![Class C Fires](vis/ClassCHM.jpg)
 Class D:  
-
+![Class D Fires](vis/ClassDHM.jpg)
 Class E:  
-
+![Class E Fires](vis/ClassEHM.jpg)
 Class F:  
-
+![Class F Fires](vis/ClassFHM.jpg)
 Class G:  
-
+![Class G Fires](vis/ClassGHM.jpg)
 
 
 
