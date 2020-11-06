@@ -54,10 +54,10 @@ We can see that the data is very heavily skewed towards smaller fires, even afte
 
 We next considered STATE and STAT_CAUSE_CODE in order to determine if statistical causes vary by location. For example, take California and Georgia.
 
-![9](9.jpg)
-![10](10.jpg)
-![11](11.jpg)
-![12](12.jpg)
+![9](9.jpg)  
+![10](10.jpg)  
+![11](11.jpg)  
+![12](12.jpg)  
 
 We see large variance in the types of causes present in each state. For example, debris burning accounts for over 50% of all fires within Georgia, whereas California sees many miscellaneous fires caused (and relatively few debris burning cases). Let’s take a closer look at lightning. Across all states, there are approximately 556,936 fires directly caused by lightning. We’d like to perform some clustering on their coordinate pairs (latitude and longitude). However, we found the sklearn’s DBSCAN was too memory intensive and did not provide meaningful results. Therefore, we used sklearn’s OPTICS (Ordering Points To Identify the Clustering Structure) to find core samples of high density and then expand from them. It is better suited for large datasets than the current sklearn implementation of DBSCAN (which is O(n.d), where d is the average number of neighbors). Finally, we use the haversine metric, which is suited for spherical coordinates given in radians, as well as a ball tree.  
 
