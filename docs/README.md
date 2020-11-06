@@ -48,19 +48,33 @@ This kernel density estimation was useful to us for a couple of reasons. First, 
 
 Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). This led to the following histogram for the size of the fires we are looking at:
 
+![Pic7](7.jpg)
+
 
 We can see that the data is very heavily skewed towards smaller fires, even after eliminating the smallest classes of fires. However, we did see improvement in our correlation matrix (see below).
 
+![8](8.jpg)
+
 We next considered STATE and STAT_CAUSE_CODE in order to determine if statistical causes vary by location. For example, take California and Georgia.
+
+![9](9.jpg)
+![10](10.jpg)
+![11](11.jpg)
+![12](12.jpg)
 
 We see large variance in the types of causes present in each state. For example, debris burning accounts for over 50% of all fires within Georgia, whereas California sees many miscellaneous fires caused (and relatively few debris burning cases). Let’s take a closer look at lightning. Across all states, there are approximately 556,936 fires directly caused by lightning. We’d like to perform some clustering on their coordinate pairs (latitude and longitude). However, we found the sklearn’s DBSCAN was too memory intensive and did not provide meaningful results. Therefore, we used sklearn’s OPTICS (Ordering Points To Identify the Clustering Structure) to find core samples of high density and then expand from them. It is better suited for large datasets than the current sklearn implementation of DBSCAN (which is O(n.d), where d is the average number of neighbors). Finally, we use the haversine metric, which is suited for spherical coordinates given in radians, as well as a ball tree.  
 
+![13](13.jpg)
 
 Unfortunately, for this random sample of 278 fires the clustering results were unclear. Nevertheless, we can see that lightning-caused fires are more prevalent in the Western United States than in the East. Therefore, when performing supervised learning it might be possible to infer location from the cause.
 
 Next, we will consider any correlation between fire size and containment time. In our dataset, we are given DISCOVERY_DATE and CONT_DATE as the two features indicating the start and end of a fire. They are given as Julian dates (i.e. the continuous count of days since the beginning of the Julius period). Therefore, to find the time it takes to contain a fire (in days) we can simply subtract these two values. We remove all rows reporting 0 days to contain the fire and any rows with NaN values. The data shows that the remaining fires take between 1 and 76 days to contain. We can try clustering based on containment time and the total fire size using the KMeans algorithm. Yellowbrick provides a KElbowVisualizer that will help us determine the appropriate number of clusters to use.
 
+![14](14.jpg)
+
 From this chart it seems that 6 would be an appropriate number of clusters to use, as the data is somewhat linear beyond this point.
+
+![15](15.jpg)
 
 Again, we unfortunately could not find a clear relationship between the fire size and time to contain. If anything, the data makes it seem as though smaller fires are the ones that take longer to contain. Whether this is due to error/bias in the data entry is unknown.
 
