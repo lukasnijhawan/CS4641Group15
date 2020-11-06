@@ -20,36 +20,14 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 #### Unsupervised Section:  
 
-##### Exploring Fire Size:
-
-During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn't tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere- as expected). See the plot below:  
-![Elbow Method](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/LocationElbow.png)  
-![Clustering on Location](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/LocationCluster.png)  
-Since this plot tells us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand our data we ran this Kernel Density Estimator for each class of fire (A-G), and received the following results:  
-
-Class A (smallest):  
-![Class A Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassAHM.png)  
-Class B:  
-![Class B Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassBHM.png)  
-Class C:  
-![Class C Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassCHM.png)  
-Class D:  
-![Class D Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassDHM.png)  
-Class E:  
-![Class E Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassEHM.png)  
-Class F:  
-![Class F Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassFHM.png)  
-Class G:  
-![Class G Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassGHM.png)  
+##### Dataset
 
 
-This kernel density estimation was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the kernel density estimation of class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.
+##### Data Clenaing + Feature Reduction
 
-Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). After creating a `CONT_TIME` feature and getting rid of these classes, we ended up with the following correlation matrix:  
 
-![Correlation Matrix](Correlation_DEFG.jpg)  
+##### More Detailed Feature Analysis
 
-With this correlation matrix, we saw an increase in correlations with fire size after eliminating the first three classes.  
 
 
 
@@ -65,6 +43,16 @@ Finally, after now having gained a thorough understanding of the data, we hope t
 
 
 ### Results:
+
+#### Results from Unsupervised Learning:  
+
+##### Identification of Outliers:
+While working with our data, we did discover multiple outliers. There were outliers with respect to fire size (for example the biggest fire being over 600,000 acres), as well as with relationships among certain features, for example a class A fire (very small) taking an extremely long time to contain. However, after getting rid of these outliers our data did start to improve.
+##### Feature/Data Selection:
+Throughout the unsupervised learning process, we were able to first trim the amount of features down significantly, as well as get rid of outliers as well as data that complicates our dataset (for example, all of the small fires). This will help as we move forward to supervised learning.
+##### Classification vs Regression/Next Steps:
+After completing this unsupervised learning phase of our project and learning more about our data, we have determined that we are planning to formulate the supervised learning phase as a classification problem. Based on our histograms of fire size, correlation matrices, and density estimations, we believe it makes the most sense to try and group a given fire into a class of fire size, in our case small fires, medium fires, or large fires (corresponding to classes D&E, F, and G respectively). The overwhelming majority of our fires are going to be ‘small’ fires (see the histogram above), and then the ‘medium’ and ‘large’ fires will be more evenly distributed. 
+
 
 The hypothetical outcome for this project is that we will be able to predict the final size of a fire given that the fire started, as well as predict the causes of fires given that they started. Both of these things would be useful in terms of fire prevention, as they would help the experts better understand the behavior of fires and possibly what steps need to be done in order to slow their spread or prevent them from happening.
 
