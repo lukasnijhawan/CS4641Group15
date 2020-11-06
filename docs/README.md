@@ -43,13 +43,10 @@ Since this plot told us nothing besides what we expected to be true, and our goa
 ![G](6.jpg)  
   
 This kernel density estimation was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the kernel density estimation of class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.  
-![Pic7](7.jpg)
 
-
-Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). This led to the following histogram for the size of the fires we are looking at:
+Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). This led to the following histogram for the size of the fires we are looking at:  
 
 ![Pic7](7.jpg)
-
 
 We can see that the data is very heavily skewed towards smaller fires, even after eliminating the smallest classes of fires. However, we did see improvement in our correlation matrix (see below).
 
