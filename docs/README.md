@@ -22,14 +22,14 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 ##### Dataset
 This dataset was obtained from Kaggle and contains 1.88 million records for U.S. wildfires from 1992 to 2015. Each entry contains 38 features including fire size and fire size class (a ranking from A to G based on fire size; see table below for size qualifications). 
-
+![Dataset](1.jpg)
 ##### Data Clenaing + Feature Reduction
 Many features included in the dataset provided fire identification information or were irrelevant to fire size and were thus dropped from the dataset. Redundant features capturing identical information were simplified to the minimum number of features required to best represent the feature. 
 
 We also tried to one-hot encode certain features of our data, most notably the different states. However, after encoding the values, we did not notice any strong correlation between different states and fire size, which is why we focus mostly on latitude and longitude in this report.
 
 After eliminating these features, we ran a Shapiro-Wilk algorithm to rank the remaining features relative to one another in their ability to predict fire size. We found that all our remaining features ranked similarly among themselves in predicting the size of a fire.
-
+![Dataset](2.jpg)
 
 It appears that our most descriptive features are Reporting Agency, Fire Year, Discovery Day of Year, Cause of Fire, Latitude and Longitude, Responding Department, and State.
 
