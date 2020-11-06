@@ -47,7 +47,9 @@ This kernel density estimation was useful to us for a couple of reasons. First, 
 
 Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). After creating a `CONT_TIME` feature and getting rid of these classes, we ended up with the following correlation matrix:  
 
+![Class A Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/Correlation_DEFG.png  
 
+With this correlation matrix, we saw an increase in correlations with fire size after eliminating the first three classes.  
 
 
 
