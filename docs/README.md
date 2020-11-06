@@ -19,12 +19,8 @@ There have previously been attempts by data scientists to deal with wildfires us
 ### Methods:
 
 #### Unsupervised Section:  
-##### Data Cleaning:  
-Getting rid of features:  
 
-Feature analysis:  
-
-##### Unsupervised Algorithms:
+##### Exploring Fire Size:
 
 During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn't tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere- as expected). See the plot below:  
 ![Elbow Method](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/LocationElbow.png)  
@@ -48,6 +44,11 @@ Class G:
 
 
 This kernel density estimation was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the kernel density estimation of class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.
+
+Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). After creating a `CONT_TIME` feature and getting rid of these classes, we ended up with the following correlation matrix:  
+
+
+
 
 
 
