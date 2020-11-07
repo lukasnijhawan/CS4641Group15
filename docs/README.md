@@ -29,11 +29,6 @@ Many features included in the dataset provided fire identification information o
 
 We also tried to one-hot encode certain features of our data, most notably the different states. However, after encoding the values, we did not notice any strong correlation between different states and fire size, which is why we focus mostly on latitude and longitude in this report.
 
-After eliminating these features, we ran a Shapiro-Wilk algorithm to rank the remaining features relative to one another in their ability to predict fire size. We found that all our remaining features ranked similarly among themselves in predicting the size of a fire.
-![Shapiro](2.jpg)
-
-It appears that our most descriptive features are Reporting Agency, Fire Year, Discovery Day of Year, Cause of Fire, Latitude and Longitude, Responding Department, and State.
-
 ##### More Detailed Feature Analysis
 During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn’t tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere—as expected). 
 
@@ -59,11 +54,11 @@ We next considered STATE and STAT_CAUSE_CODE (a feature detailing the cause of t
 ![9](9.jpg)  
 ![10](10.jpg) 
 
-We see large variance in the types of causes present in each state: debris burning accounts for over 50% of all fires within Georgia, whereas California sees many miscellaneous fires caused (and relatively few debris burning cases). Overall, cause of of fire varies by state:
+We see large variance in the types of causes present in each state: debris burning accounts for over 50% of all fires within Georgia, whereas California sees many miscellaneous fires caused (and relatively few debris burning cases). Overall, cause of fire varies by state:
 
 ![cause_by_state](cause_by_state.jpg)
 
-When we looked into fire cause for each size class, we discovered that there do seem to be variance in the causes:
+When we looked into fire cause for each size class, we discovered that there is cause variance between fire size classes:
 
 ![cause_by_size](cause_by_size.jpg)
 
