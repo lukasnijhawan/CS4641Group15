@@ -20,36 +20,64 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 #### Unsupervised Section:  
 
-##### Exploring Fire Size:
+##### Dataset
+This dataset was obtained from Kaggle and contains 1.88 million records for U.S. wildfires from 1992 to 2015. Each entry contains 38 features including fire size as well as fire size class (a ranking from A to G based on fire size; see table below for size qualifications). 
+![Dataset](1.jpg)
 
-During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn't tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere- as expected). See the plot below:  
-![Elbow Method](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/LocationElbow.png)  
-![Clustering on Location](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/LocationCluster.png)  
-Since this plot tells us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand our data we ran this Kernel Density Estimator for each class of fire (A-G), and received the following results:  
+##### Data Cleaning + Feature Reduction
+Many features included in the dataset provided fire identification information or were irrelevant to fire size and were thus dropped from the dataset. Redundant features capturing identical information were simplified to the minimum number of features required to best represent the feature. 
 
-Class A (smallest):  
-![Class A Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassAHM.png)  
-Class B:  
-![Class B Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassBHM.png)  
-Class C:  
-![Class C Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassCHM.png)  
-Class D:  
-![Class D Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassDHM.png)  
-Class E:  
-![Class E Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassEHM.png)  
-Class F:  
-![Class F Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassFHM.png)  
-Class G:  
-![Class G Fires](https://github.com/lukasnijhawan/CS4641Group15/blob/master/docs/vis/ClassGHM.png)  
+We also tried to one-hot encode certain features of our data, most notably the different states. However, after encoding the values, we did not notice any strong correlation between different states and fire size, which is why we focus mostly on latitude and longitude in this report.
+
+##### More Detailed Feature Analysis
+During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn’t tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere—as expected). 
+
+Since this plot told us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand where each type of fire was occurring, we plotted the coordinates for each class of fire (A-G), and received the following fire distributions:
+![heatmap](heatmaps.jpg) 
+  
+This was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the plots for class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.  
+
+Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). This led to the following histogram for the size of the fires we are looking at:  
+
+![Pic7](7.jpg)
+
+We can see that the data is very heavily skewed towards smaller fires, even after eliminating the smallest classes of fires. However, we did see improvement in our correlation matrix (see below).
+
+![8](8.jpg)
+
+Considering only size classes D, E, F, and G, we looked into the proportion of fires of each class by state:
+
+![size_by_state](size_by_state.jpg)
+
+We next considered STATE and STAT_CAUSE_CODE (a feature detailing the cause of the fire) in order to determine if statistical causes vary by location. For example, take California and Georgia.
+
+![9](9.jpg)  
+![10](10.jpg) 
+
+We see large variance in the types of causes present in each state: debris burning accounts for over 50% of all fires within Georgia, whereas California sees many miscellaneous fires caused (and relatively few debris burning cases). Overall, cause of fire varies by state:
+
+![cause_by_state](cause_by_state.jpg)
+
+When we looked into fire cause for each size class, we discovered that there is cause variance between fire size classes:
+
+![cause_by_size](cause_by_size.jpg)
 
 
-This kernel density estimation was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the kernel density estimation of class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.
+Let’s take a closer look at lightning. Across all states, there are approximately 556,936 fires directly caused by lightning. We’d like to perform some clustering on their coordinate pairs (latitude and longitude). However, we found the sklearn’s DBSCAN was too memory intensive and did not provide meaningful results. Therefore, we used sklearn’s OPTICS (Ordering Points To Identify the Clustering Structure) to find core samples of high density and then expand from them. It is better suited for large datasets than the current sklearn implementation of DBSCAN (which is O(n.d), where d is the average number of neighbors). Finally, we use the haversine metric, which is suited for spherical coordinates given in radians, as well as a ball tree.  
 
-Based on these density estimators, we decided to eliminate fire size classes A,B, and C (the three smallest classes). After creating a `CONT_TIME` feature and getting rid of these classes, we ended up with the following correlation matrix:  
+![13](13.jpg)
 
-![Correlation Matrix](Correlation_DEFG.jpg)  
+Unfortunately, for this random sample of 278 fires the clustering results were unclear. Nevertheless, we can see that lightning-caused fires are more prevalent in the Western United States than in the East. Therefore, when performing supervised learning it might be possible to infer location from the cause.
 
-With this correlation matrix, we saw an increase in correlations with fire size after eliminating the first three classes.  
+Next, we will consider any correlation between fire size and containment time. In our dataset, we are given DISCOVERY_DATE and CONT_DATE as the two features indicating the start and end of a fire. They are given as Julian dates (i.e. the continuous count of days since the beginning of the Julius period). Therefore, to find the time it takes to contain a fire (in days) we can simply subtract these two values. We remove all rows reporting 0 days to contain the fire and any rows with NaN values. The data shows that the remaining fires take between 1 and 76 days to contain. We can try clustering based on containment time and the total fire size using the KMeans algorithm. Yellowbrick provides a KElbowVisualizer that will help us determine the appropriate number of clusters to use.
+
+![14](14.jpg)
+
+From this chart it seems that 6 would be an appropriate number of clusters to use, as the data is somewhat linear beyond this point.
+
+![15](15.jpg)
+
+Again, we unfortunately could not find a clear relationship between the fire size and time to contain. If anything, the data makes it seem as though smaller fires are the ones that take longer to contain. Whether this is due to error/bias in the data entry is unknown.
 
 
 
@@ -65,6 +93,16 @@ Finally, after now having gained a thorough understanding of the data, we hope t
 
 
 ### Results:
+
+#### Results from Unsupervised Learning:  
+
+##### Identification of Outliers:
+While working with our data, we did discover multiple outliers. There were outliers with respect to fire size (for example the biggest fire being over 600,000 acres), as well as with relationships among certain features, for example a class A fire (very small) taking an extremely long time to contain. However, after getting rid of these outliers our data did start to improve.
+##### Feature/Data Selection:
+Throughout the unsupervised learning process, we were able to first trim the amount of features down significantly, as well as get rid of outliers as well as data that complicates our dataset (for example, all of the small fires). This will help as we move forward to supervised learning.
+##### Classification vs Regression/Next Steps:
+After completing this unsupervised learning phase of our project and learning more about our data, we have determined that we are planning to formulate the supervised learning phase as a classification problem. Based on our histograms of fire size, correlation matrices, and density estimations, we believe it makes the most sense to try and group a given fire into a class of fire size, in our case small fires, medium fires, or large fires (corresponding to classes D&E, F, and G respectively). The overwhelming majority of our fires are going to be ‘small’ fires (see the histogram above), and then the ‘medium’ and ‘large’ fires will be more evenly distributed. 
+
 
 The hypothetical outcome for this project is that we will be able to predict the final size of a fire given that the fire started, as well as predict the causes of fires given that they started. Both of these things would be useful in terms of fire prevention, as they would help the experts better understand the behavior of fires and possibly what steps need to be done in order to slow their spread or prevent them from happening.
 
