@@ -91,7 +91,7 @@ Finally, after now having gained a thorough understanding of the data, we hope t
 ##### SVM Classifiers: 
 The first model we attempted to use during this phase is the SVC Classification model. Our SVC Classification Model’s accuracy is 48%. Not only is this an unacceptable level of accuracy, it also has the problem of predicting every data point to be the “D” level classification of fire. This shows that in order to predict fire size with our given data, we will need a more dynamic classification algorithm. We then went on to try different supervised learning techniques.  
 
-![svcreport](F12 SVC Report.jpg)
+![svcreport](F12 SVC Report.jpg)  
 ![svcmatrix](F13 SVC Matrix.jpg)
 
 ##### Decision Trees:  
@@ -105,47 +105,47 @@ Looking at the chart above, we found that a max_depth of 6 would lead to the hig
 
 Based on these classification results, the accuracy of the Decision Tree was not great, coming in at 49%, which is less than the ‘guess’ accuracy that we desired (~52%). However, since we have four classes, we wanted to look at other metrics as well. We found that precision, recall, and the f1-score were all relatively higher for the Class D fires, but extremely low for the other sizes. We also see that the algorithm has a very difficult time predicting a large fire, which we did not expect. In addition, the first three layers of the Decision Tree created can be seen below:  
 
-![dt branching](F3 DT Branching.jpg)
+![dt branching](F3 DT Branching.jpg)  
 ![dt rainbows](F4 DT Rainbow line graph.jpg)
 
 
 ##### Random Forests:  
 We also attempted to use Random Forests after Random Forest in order to build upon what we already had. In terms of figuring out hyperparameters for the Random Forest, we first decided to run a series of forests with varying estimator and max_depth sizes. Based on these trials, we found that the optimal max_depth was 15 and the optimal number of estimators was 100. See the graph below for how the accuracy changed depending on the estimators while max_depth was 15.  
 
-![a](F5 RF Elbow.jpg)
+![a](F5 RF Elbow.jpg)  
 
 Using these hyperparameters we produced a Random Forest with the following classification report for our data:  
 
-![ab](F6 RF Class Report.jpg)
+![ab](F6 RF Class Report.jpg)  
 
 This accuracy was worse than the desired accuracy (the ‘guess’ accuracy of around 52%), however not by as much as other methods. In addition, the precision, recall and f1-score continued to be high for the Class D fires but low for larger fires.   
 
-![ab](F7 RF Rainbow LG.jpg)
+![ab](F7 RF Rainbow LG.jpg)  
 
 
 
 ##### Neural Networks:  
 Based on how the other classification methods failed to meet the desired accuracy, we thought that a Neural Network could be a good option to predict the wildfire classes. We tried multiple combinations of hyperparameters, but we found that the most ideal architecture was four hidden layers with 50 nodes per layer. The performance of the Neural Network did not improve significantly with increased layers or increased nodes per layer, so we decided to stick with the simpler model. This model produced the following results:  
 
-![nn](F11 NN Class Report.jpg)
+![nn](F11 NN Class Report.jpg)  
 
 The accuracy here is still less than desired, as it is not at the 52% threshold that we wanted. Again, following the trend with the other methods, the algorithm does a good job in predicting Class D fires but fails with everything else. This might be because there are relatively a lot more Class D fires and so many fewer Class F, G fires (the dataset is very heavily skewed towards smaller fires, which makes it hard to predict larger fires).  
 
 ##### Naive Bayes:  
 We also used a Gaussian Naive Bayes classifier. However, we expected poor performance because the features are strongly correlated. For example, we showed in our unsupervised portion of this assignment that location and fire cause were correlated.  
 
-![nb](F8 Gaussian NB.jpg)
+![nb](F8 Gaussian NB.jpg)  
 
 We found an average accuracy of 0.4497, which is worse than the desired accuracy. However, we found a relatively high f1-score for class “D” fires, which is in-line with some of our results discussed above.  
  
 ##### Gradient Boosting:  
 We next attempted to use XGBoost, which is a gradient boosting algorithm. It’s an ensemble method that uses many weak predictions models (in our case, decision trees). It also offers fast execution speed while offering accurate results. This algorithm has several hyperparameters, such as gamma, a regularization parameter, and max depth, which controls the depth of the decision trees. To find an appropriate set of values, we used sklearn’s grid search cross validation.  
 
-![gb1](F9 Gradient boost.jpg)
+![gb1](F9 Gradient boost.jpg)  
 
 We achieved an accuracy of 54%, which beat the baseline accuracy by 2%. It also performed exceptionally well with class “D” fires. Confusion matrix:  
 
-![gb2](F10 Gradient Boost Yellow Brick Matrix.jpg)
+![gb2](F10 Gradient Boost Yellow Brick Matrix.jpg)  
 
 ##### K-Nearest Neighbors:  
 
