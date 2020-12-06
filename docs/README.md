@@ -101,7 +101,7 @@ The next method that we attempted to implement during the supervised learning ph
 
 Looking at the chart above, we found that a max_depth of 6 would lead to the highest accuracy Decision Tree so that is what we decided to focus on. After fitting a Decision Tree with this depth, we produced the following results for precision, recall, f1-score and accuracy:  
 
-![classreport](F2 DT Class Report.jpg)
+![classreport](dtreport.jpg)
 
 Based on these classification results, the accuracy of the Decision Tree was not great, coming in at 49%, which is less than the ‘guess’ accuracy that we desired (~52%). However, since we have four classes, we wanted to look at other metrics as well. We found that precision, recall, and the f1-score were all relatively higher for the Class D fires, but extremely low for the other sizes. We also see that the algorithm has a very difficult time predicting a large fire, which we did not expect. In addition, the first three layers of the Decision Tree created can be seen below:  
 
@@ -116,7 +116,7 @@ We also attempted to use Random Forests after Random Forest in order to build up
 
 Using these hyperparameters we produced a Random Forest with the following classification report for our data:  
 
-![ab](F6 RF Class Report.jpg)  
+![ab](rfreport.jpg)  
 
 This accuracy was worse than the desired accuracy (the ‘guess’ accuracy of around 52%), however not by as much as other methods. In addition, the precision, recall and f1-score continued to be high for the Class D fires but low for larger fires.   
 
@@ -127,7 +127,7 @@ This accuracy was worse than the desired accuracy (the ‘guess’ accuracy of a
 ##### Neural Networks:  
 Based on how the other classification methods failed to meet the desired accuracy, we thought that a Neural Network could be a good option to predict the wildfire classes. We tried multiple combinations of hyperparameters, but we found that the most ideal architecture was four hidden layers with 50 nodes per layer. The performance of the Neural Network did not improve significantly with increased layers or increased nodes per layer, so we decided to stick with the simpler model. This model produced the following results:  
 
-![nn](F11 NN Class Report.jpg)  
+![nn](nnreport.jpg)  
 
 The accuracy here is still less than desired, as it is not at the 52% threshold that we wanted. Again, following the trend with the other methods, the algorithm does a good job in predicting Class D fires but fails with everything else. This might be because there are relatively a lot more Class D fires and so many fewer Class F, G fires (the dataset is very heavily skewed towards smaller fires, which makes it hard to predict larger fires).  
 
@@ -169,8 +169,8 @@ Throughout the unsupervised learning process, we were able to first trim the amo
 ##### Classification vs Regression/Next Steps:
 After completing this unsupervised learning phase of our project and learning more about our data, we have determined that we are planning to formulate the supervised learning phase as a classification problem. Based on our histograms of fire size, correlation matrices, and density estimations, we believe it makes the most sense to try and group a given fire into a class of fire size, in our case small fires, medium fires, or large fires (corresponding to classes D&E, F, and G respectively). The overwhelming majority of our fires are going to be ‘small’ fires (see the histogram above), and then the ‘medium’ and ‘large’ fires will be more evenly distributed. 
 
-#### Results from Supervised Learning:
-
+#### Results from Supervised Learning:  
+All in all, the results of our supervised learning section did not go as planned. We had set a target accuracy of 52%, as this is the ‘guess’ accuracy- the accuracy that can be achieved by merely picking the most common class and not looking at the specific characteristics of the fire. While experimenting with different supervised learning methods, we found that the XGBoost method was the only one to beat the ‘guess’ accuracy (with an accuracy of 54%). The Random Forest also performed close to guess accuracy, with an accuracy of 51%. We found the Neural Networks, Decision Trees, and SVM were not successful methods in predicting the class of a wildfire. Throughout our experimentation, we also found that the precision, recall, and f1-score statistics were consistently best for Class D fires, as well as consistently poor for the other classes of fires. This is possibly because the data mostly contained fires in Class D, which made it hard to predict larger fires. It was certainly the case that there are very few Class G fires (less than 4000 out of a dataset of 1.88 million). This makes it hard for models to learn when fires grow to be that big, as with so few there appears to be a random element about it.  
 
 ### Discussion:
 
@@ -178,6 +178,13 @@ For this project, the best outcome would be that we are able to successfully pre
 
 
 ### Final Discussion/Commentary:  
+Given that none of many classification models we attempted were able to accurately predict the fire size class, it appears that the features contained in the dataset are not enough to predict the eventual size of a wildfire. During the data exploration in Touchpoint 1, it was noted that much of the numerical data from the wildfire reports had a bias towards certain number (time frequently appeared as a whole number; wildfire sizes frequently appeared as a specific number: 50, 100, 150 acres), so perhaps this dataset does not accurately capture the actual features of all wildfires. We would be interested in pulling in additional data, like weather information at time of fire, to see how it impacts the accuracy of the models.
+
+##### Regression instead of Classification?  
+In the supervised learning portion of our project, we focused on classification as opposed to regression. We aimed to classify a given fire into one of four possible fire size classes: “D”, “E”, “F”, or “G.” However, after data cleaning and pre-processing the dataset was mostly composed of fires in the “D” class, so that assigning this label to a given fire would likely be a correct assignment. As a result, the algorithms we used did not achieve remarkable improvements in classification accuracy. It’s possible that we would have gotten better results had we focused on regression instead. Because regression is based on a continuous feature, we would not have to deal with issues related to the relative sizes of each of the four classes. Moreover, this change would allow us to use various regression models in our work.  
+
+If we were to stick with classification (or if we had selected regression instead), it seems it would be helpful to have a dataset with more even distribution of the fire size classes. As mentioned, close to 50% of the dataset is made of fires in class D (100-300 acres), so it would be interesting to create classification models using a subset of the dataset with evenly distributed fire size class.
+
 
 ### References:
 (1): [A Machine Learning-Based Approach for Wildlife Susceptibility Mapping. The Case Study of the Liguria Region in Italy](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwidsPeivf_rAhVSTd8KHd8yBj8QFjAEegQICRAB&url=https%3A%2F%2Fwww.mdpi.com%2F2076-3263%2F10%2F3%2F105%2Fpdf&usg=AOvVaw1YcrKdNxaP00bDtDOdOn87)
