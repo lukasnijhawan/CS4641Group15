@@ -156,7 +156,7 @@ Like many of the previous models, the accuracy from  k-nearest neighbors classif
 Interestingly, the initial models (accuracy plotted above) did not include data normalization; however, using two normalization methods, z-score normalization and min - max normalization, did not significantly increase the accuracy.  
 
 
-![gb5](F15 3 charts.jpg)   
+![gb5](F15 3 Charts.jpg)   
 
 ### Results:
 
