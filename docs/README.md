@@ -148,7 +148,15 @@ We achieved an accuracy of 54%, which beat the baseline accuracy by 2%. It also 
 ![gb2](F10 Gradient Boost Yellow Brick Matrix.jpg)  
 
 ##### K-Nearest Neighbors:  
+Like many of the previous models, the accuracy from  k-nearest neighbors classification plateaued around 50%. By changing the k-neighbors parameter from 1 to 100, it appears that the number of neighbors used for this model should be above 30, but increasing the number further does not impact the overall accuracy much.  
 
+
+![gb4](F14 k-Nearest Line Graph.jpg)   
+
+Interestingly, the initial models (accuracy plotted above) did not include data normalization; however, using two normalization methods, z-score normalization and min - max normalization, did not significantly increase the accuracy.  
+
+
+![gb5](F15 3 charts.jpg)   
 
 ### Results:
 
