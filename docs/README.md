@@ -87,19 +87,45 @@ Again, we unfortunately could not find a clear relationship between the fire siz
 #### Supervised Section:  
 Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. 
 
+
+##### SVM Classifiers: 
+The first model we attempted to use during this phase is the SVC Classification model. Our SVC Classification Model’s accuracy is 48%. Not only is this an unacceptable level of accuracy, it also has the problem of predicting every data point to be the “D” level classification of fire. This shows that in order to predict fire size with our given data, we will need a more dynamic classification algorithm. We then went on to try different supervised learning techniques.  
+
 ##### Decision Trees:  
+The next method that we attempted to implement during the supervised learning phase of the project were Decision Trees. We thought that this would be a good supervised learning method because we are dealing with a classification problem with a lot of categorical data, and after looking at the results of our unsupervised learning phase there were signs that Decision Trees could be a promising method. For example, looking at the discrete variable of causes, larger wildfires had a disproportionate number of fires, which we thought would indicate that Decision Trees could be a good method. In terms of hyperparameters, the main hyperparameter we were concerned with was the max_depth of the Decision Tree.  
+
+Looking at the chart above, we found that a max_depth of 6 would lead to the highest accuracy Decision Tree so that is what we decided to focus on. After fitting a Decision Tree with this depth, we produced the following results for precision, recall, f1-score and accuracy:  
+
+Based on these classification results, the accuracy of the Decision Tree was not great, coming in at 49%, which is less than the ‘guess’ accuracy that we desired (~52%). However, since we have four classes, we wanted to look at other metrics as well. We found that precision, recall, and the f1-score were all relatively higher for the Class E fires, but extremely low for the other sizes. We also see that the algorithm has a very difficult time predicting a large fire, which we did not expect. In addition, the first three layers of the Decision Tree created can be seen below:  
+
+
 
 
 ##### Random Forests:  
+We also attempted to use Random Forests after Random Forest in order to build upon what we already had. In terms of figuring out hyperparameters for the Random Forest, we first decided to run a series of forests with varying estimator and max_depth sizes. Based on these trials, we found that the optimal max_depth was 15 and the optimal number of estimators was 100. See the graph below for how the accuracy changed depending on the estimators while max_depth was 15.  
+
+Using these hyperparameters we produced a Random Forest with the following classification report for our data:  
+
+This accuracy was worse than the desired accuracy (the ‘guess’ accuracy of around 52%), however not by as much as other methods. In addition, the precision, recall and f1-score continued to be high for the Class E fires but low for larger fires.   
+
 
 
 ##### Neural Networks:  
+Based on how the other classification methods failed to meet the desired accuracy, we thought that a Neural Network could be a good option to predict the wildfire classes. We tried multiple combinations of hyperparameters, but we found that the most ideal architecture was four hidden layers with 50 nodes per layer. The performance of the Neural Network did not improve significantly with increased layers or increased nodes per layer, so we decided to stick with the simpler model. This model produced the following results:  
 
+The accuracy here is still less than desired, as it is not at the 52% threshold that we wanted. Again, following the trend with the other methods, the algorithm does a good job in predicting Class E fires but fails with everything else. This might be because there are relatively a lot more Class E fires and so many fewer Class F, G fires (the dataset is very heavily skewed towards smaller fires, which makes it hard to predict larger fires).  
 
 ##### Naive Bayes:  
+We also used a Gaussian Naive Bayes classifier. However, we expected poor performance because the features are strongly correlated. For example, we showed in our unsupervised portion of this assignment that location and fire cause were correlated.  
 
+We found an average accuracy of 0.4497, which is worse than the desired accuracy. However, we found a relatively high f1-score for class “D” fires, which is in-line with some of our results discussed above.  
+ 
+##### Gradient Boosting:  
+We next attempted to use XGBoost, which is a gradient boosting algorithm. It’s an ensemble method that uses many weak predictions models (in our case, decision trees). It also offers fast execution speed while offering accurate results. This algorithm has several hyperparameters, such as gamma, a regularization parameter, and max depth, which controls the depth of the decision trees. To find an appropriate set of values, we used sklearn’s grid search cross validation.   
 
-##### SVM Classifiers:  
+We achieved an accuracy of 54%, which beat the baseline accuracy by 2%. It also performed exceptionally well with class “D” fires. Confusion matrix:  
+
+##### K-Nearest Neighbors:  
 
 
 ### Results:
@@ -115,9 +141,6 @@ After completing this unsupervised learning phase of our project and learning mo
 
 #### Results from Supervised Learning:
 
-##### Different Model Performances/Comparisons:
-
-##### What went right? What went wrong?
 
 ### Discussion:
 
