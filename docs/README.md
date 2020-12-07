@@ -22,6 +22,7 @@ There have previously been attempts by data scientists to deal with wildfires us
 
 ##### Dataset
 This dataset was obtained from Kaggle and contains 1.88 million records for U.S. wildfires from 1992 to 2015. Each entry contains 38 features including fire size as well as fire size class (a ranking from A to G based on fire size; see table below for size qualifications). 
+
 ![Dataset](1.jpg)
 
 ##### Data Cleaning + Feature Reduction
@@ -32,7 +33,8 @@ We also tried to one-hot encode certain features of our data, most notably the d
 ##### More Detailed Feature Analysis
 During this unsupervised learning phase, we attempted to employ several clustering and density estimation algorithms to get a better understanding of our data. The first feature we looked at was location, as we thought that clustering by location might prove meaningful to split the data up. However, we ended up with a plot that didn’t tell us much information, as it turned out to simply be a map of the United States (indicating that there are fires everywhere—as expected). 
 
-Since this plot told us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand where each type of fire was occurring, we plotted the coordinates for each class of fire (A-G), and received the following fire distributions:
+Since this plot told us nothing besides what we expected to be true, and our goal is to predict the size of a fire, we wanted to get a better estimator of how the sizes of fires were distributed on a map. For this we decided to use a Kernel Density Estimator, as it would tell us not only where fires occur but also how frequently (dense) fires occur in a certain location. To fully understand where each type of fire was occurring, we plotted the coordinates for each class of fire (A-G), and received the following fire distributions:  
+
 ![heatmap](heatmaps.jpg) 
   
 This was useful to us for a couple of reasons. First, it lets us visualize where and how frequently different sized fires occur. It also allows us to look at possibly getting rid of certain classes of fires that are not helpful to our experiment. For example, the plots for class A fires shows us that the fires occur everywhere in the United States, and pretty frequently everywhere (more or less). This is an indicator that, with such a uniform distribution of density, it might be difficult to predict anything about fires this size and it could throw off our data. In contrast, looking at the larger classes of fires, we can see that the fires are clearly more concentrated in certain areas than others, meaning they are not uniformly spread throughout the map. This leads us to reason that attributes like location might be more important and able to predict these fires better than smaller fires, so our dataset might be better off without the smaller fires as we move into supervised learning.  
@@ -85,7 +87,7 @@ Again, we unfortunately could not find a clear relationship between the fire siz
 
 
 #### Supervised Section:  
-Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. 
+Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. As a baseline classifier, we simply assign the most common fire size class to each fire. This gives an accuracy of 52.55%.
 
 
 ##### SVM Classifiers: 
@@ -110,7 +112,7 @@ Based on these classification results, the accuracy of the Decision Tree was not
 
 
 ##### Random Forests:  
-We also attempted to use Random Forests after Random Forest in order to build upon what we already had. In terms of figuring out hyperparameters for the Random Forest, we first decided to run a series of forests with varying estimator and max_depth sizes. Based on these trials, we found that the optimal max_depth was 15 and the optimal number of estimators was 100. See the graph below for how the accuracy changed depending on the estimators while max_depth was 15.  
+We also attempted to use Random Forests after Decision Trees in order to build upon what we already had. In terms of figuring out hyperparameters for the Random Forest, we first decided to run a series of forests with varying estimator and max_depth sizes. Based on these trials, we found that the optimal max_depth was 15 and the optimal number of estimators was 100. See the graph below for how the accuracy changed depending on the estimators while max_depth was 15.  
 
 ![a](F5 RF Elbow.jpg)  
 
@@ -143,7 +145,7 @@ We next attempted to use XGBoost, which is a gradient boosting algorithm. It’s
 
 ![gb1](F9 Gradient boost.jpg)  
 
-We achieved an accuracy of 54%, which beat the baseline accuracy by 2%. It also performed exceptionally well with class “D” fires. Confusion matrix:  
+We achieved an accuracy of 54%, which beat the baseline accuracy by 2%. It also performed exceptionally well with class “D” fires. Here is the corresponding confusion matrix:  
 
 ![gb2](F10 Gradient Boost Yellow Brick Matrix.jpg)  
 
@@ -166,8 +168,8 @@ Interestingly, the initial models (accuracy plotted above) did not include data 
 While working with our data, we did discover multiple outliers. There were outliers with respect to fire size (for example the biggest fire being over 600,000 acres), as well as with relationships among certain features, for example a class A fire (very small) taking an extremely long time to contain. However, after getting rid of these outliers our data did start to improve.
 ##### Feature/Data Selection:
 Throughout the unsupervised learning process, we were able to first trim the amount of features down significantly, as well as get rid of outliers as well as data that complicates our dataset (for example, all of the small fires). This will help as we move forward to supervised learning.
-##### Classification vs Regression/Next Steps:
-After completing this unsupervised learning phase of our project and learning more about our data, we have determined that we are planning to formulate the supervised learning phase as a classification problem. Based on our histograms of fire size, correlation matrices, and density estimations, we believe it makes the most sense to try and group a given fire into a class of fire size, in our case small fires, medium fires, or large fires (corresponding to classes D&E, F, and G respectively). The overwhelming majority of our fires are going to be ‘small’ fires (see the histogram above), and then the ‘medium’ and ‘large’ fires will be more evenly distributed. 
+##### Classification vs. Regression/Next Steps:
+After completing this unsupervised learning phase of our project and learning more about our data, we have determined that we are planning to formulate the supervised learning phase as a classification problem. Based on our histograms of fire size, correlation matrices, and density estimations, we believe it makes the most sense to try and group a given fire into a class of fire size, in our case small fires, medium fires, or large fires (corresponding to classes D & E, F, and G respectively). The overwhelming majority of our fires are going to be ‘small’ fires (see the histogram above), and then the ‘medium’ and ‘large’ fires will be more evenly distributed. 
 
 #### Results from Supervised Learning:  
 All in all, the results of our supervised learning section did not go as planned. We had set a target accuracy of 52%, as this is the percentage of fires that are class D. However, we did find that we were able to beat the random guess accuracy of 25% (because four classes). While experimenting with different supervised learning methods, we found that the XGBoost method was the only one to beat the target accuracy (with an accuracy of 54%). The Random Forest also performed close to target accuracy, with an accuracy of 51%. We found the Neural Networks, Decision Trees, and SVM were not successful methods in predicting the class of a wildfire. Throughout our experimentation, we also found that the precision, recall, and f1-score statistics were consistently best for Class D fires, as well as consistently poor for the other classes of fires. This is possibly because the data mostly contained fires in Class D, which made it hard to predict larger fires. It was certainly the case that there are very few Class G fires (less than 4000 out of a dataset of 1.88 million). This makes it hard for models to learn when fires grow to be that big, as with so few there appears to be a random element about it.
