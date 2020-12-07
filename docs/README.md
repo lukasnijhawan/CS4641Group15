@@ -87,7 +87,7 @@ Again, we unfortunately could not find a clear relationship between the fire siz
 
 
 #### Supervised Section:  
-Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. As a baseline classifier, we simply assign the most common fire size class to each fire. This gives an accuracy of 52.55%.
+Finally, after now having gained a thorough understanding of the data, we hope to be able to predict the size of a wildfire given certain characteristics of it. As a baseline classifier, we simply assign the most common fire size class to each fire. This gives an accuracy of 48%.
 
 
 ##### SVM Classifiers: 
@@ -105,7 +105,7 @@ Looking at the chart above, we found that a max_depth of 6 would lead to the hig
 
 ![classreport](dtreport.jpg)
 
-Based on these classification results, the accuracy of the Decision Tree was not great, coming in at 49%, which is less than the ‘guess’ accuracy that we desired (~52%). However, since we have four classes, we wanted to look at other metrics as well. We found that precision, recall, and the f1-score were all relatively higher for the Class D fires, but extremely low for the other sizes. We also see that the algorithm has a very difficult time predicting a large fire, which we did not expect. In addition, the first three layers of the Decision Tree created can be seen below:  
+Based on these classification results, the accuracy of the Decision Tree was not great, coming in at 49%, which is less than the ‘guess’ accuracy that we desired (~48%). However, since we have four classes, we wanted to look at other metrics as well. We found that precision, recall, and the f1-score were all relatively higher for the Class D fires, but extremely low for the other sizes. We also see that the algorithm has a very difficult time predicting a large fire, which we did not expect. In addition, the first three layers of the Decision Tree created can be seen below:  
 
 ![dt branching](F3 DT Branching.jpg)  
 ![dt rainbows](F4 DT Rainbow line graph.jpg)
